@@ -1,0 +1,223 @@
+/* ------ */
+/* HEADER */
+/* ------ */
+
+* {
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', sans-serif;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10%;
+    background-color: black;
+}
+
+#fondo {
+    background-color: rgba(0, 0, 0, 0);
+    width: 3rem;
+    height: 3rem;
+}
+
+.divBoton {
+    position: relative;
+    height:  5rem;
+    width:  5rem;
+    margin: 0.5rem;
+}
+
+.boton {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    cursor: pointer;
+}
+  
+.botonRecipiente {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #079ad9;
+    border-radius: 5px;
+    padding: 1rem;
+    transition: transform 300ms ease;
+}
+
+.botonRecipiente div {
+    margin-bottom:2px;
+}
+
+.menuIcono {
+    background-color: #079ad9;
+    width: 3rem;
+    height: 3rem;
+    background-size: 3rem 3rem;
+    background-image: url(./imagenes/menuAzul.png);
+    background-repeat: no-repeat; 
+}
+
+.hamburguesaIcono {
+    background-color: #079ad9;
+    width: 3rem;
+    height: 3rem;
+    background-size: 3rem 3rem;
+    background-image: url(./imagenes/hamburguesaAzul.png);
+    background-repeat: no-repeat; 
+}
+
+.bebidaIcono {
+    background-color: #079ad9;
+    width: 3rem;
+    height: 3rem;
+    background-size: 3rem 3rem;
+    background-image: url(./imagenes/bebidaAzul.png);
+    background-repeat: no-repeat; 
+}
+
+.pedidoIcono {
+    background-color: #079ad9;
+    width: 3rem;
+    height: 3rem;
+    background-size: 3rem 3rem;
+    background-image: url(./imagenes/pedidoAzul.png);
+    background-repeat: no-repeat; 
+}
+
+.texto {
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #079ad9;
+}
+  
+.boton:checked + .botonRecipiente {
+    background-color: #079ad9;
+    border: 2px solid #079ad9;
+    color: white;
+    transform: scale(1.1, 1.1);
+}
+
+.boton:checked + .botonRecipiente  .menuIcono {
+    fill: white;
+    background-color: #079ad9;
+    background-image: url(./imagenes/menuBlanco.png);
+}
+
+.boton:checked + .botonRecipiente  .hamburguesaIcono {
+    fill: white;
+    background-color: #079ad9;
+    background-image: url(./imagenes/hamburguesaBlanco.png);
+}
+
+.boton:checked + .botonRecipiente  .bebidaIcono {
+    fill: white;
+    background-color: #079ad9;
+    background-image: url(./imagenes/bebidaBlanco.png);
+}
+
+.boton:checked + .botonRecipiente  .pedidoIcono {
+    fill: white;
+    background-color: #079ad9;
+    background-image: url(./imagenes/pedidoBlanco.png);
+}
+
+.boton:checked + .botonRecipiente .texto {
+    color: white;
+    background-color: #079ad9;
+}
+
+/* ---- */
+/* MAIN */
+/* ---- */
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    background: #f39c12;
+  }
+  
+  .producto {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 0 !important;
+    background: #2c3e50;
+    background-image: none;
+  }
+  
+  .producto::-ms-expand {
+    display: none;
+  }
+  
+  #select {
+    position: relative;
+    display: flex;
+    width: 20em;
+    height: 3em;
+    line-height: 3;
+    background: #2c3e50;
+    overflow: hidden;
+    border-radius: .25em;
+  }
+  
+  #pedir {
+    
+    width: 20em;
+    height: 3em;
+    cursor: pointer;
+    color: white;
+    background: #2c3e50;
+    
+  }
+
+  .producto {
+    flex: 1;
+    padding: 0 .5em;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  /* Flecha */
+  #select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    background: #34495e;
+    cursor: pointer;
+    pointer-events: none;
+    -webkit-transition: .25s all ease;
+    -o-transition: .25s all ease;
+    transition: .25s all ease;
+  }
+
+  /* Transicion */
+  #select:hover::after {
+    color: #f39c12;
+  }
+
+  #resultado {
+      margin: 10%; 
+  }
+
+  #resultado div {
+      margin-bottom: 10%;  
+  }

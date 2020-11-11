@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <header>
+
+
+        <div class="divBoton">
+            <input onclick="menu()" id="menu" class="boton" type="radio" name="boton" />
+            <div class="botonRecipiente">
+                <div class="logo">
+                    <div class="menuIcono" id="fondo" fill="#000000"> </div>
+                </div>
+                
+                    <label id="fondo" for="menu" class="texto">Menú</label>
+                
+            </div>
+        </div>
+
+        <div class="divBoton">
+            <input onclick="hamburguesa()" id="hamburguesa" class="boton" type="radio" name="boton" />
+            <div class="botonRecipiente">
+                <div class="logo">
+                    <div class="hamburguesaIcono" id="fondo" fill="#000000"> </div>
+                </div>
+                <label id="fondo" for="hamburguesa" class="texto">Hamb.</label>
+            </div>
+        </div>
+
+        <div class="divBoton">
+            <input onclick="bebida()" id="bebida" class="boton" type="radio" name="boton" />
+            <div class="botonRecipiente">
+                <div class="logo">
+                    <div class="bebidaIcono" id="fondo" fill="#000000"> </div>
+                </div>
+                <label id="fondo" for="bebida" class="texto">Bebida</label>
+            </div>
+        </div>
+
+        <div class="divBoton">
+            <input onclick="pedido()" id="pedido" class="boton" type="radio" name="boton" />
+            <div class="botonRecipiente">
+                <div class="logo">
+                    <div class="pedidoIcono" id="fondo" fill="#000000"> </div>
+                </div>
+                <label id="fondo" for="pedido" class="texto">Pedido</label>
+            </div>
+        </div>
+
+
+    </header>
+
+    <main>
+        <div id="resultado">
+            <select name="" id="select" class="producto">
+                <option value="">Elija una opcion</option>
+            </select>
+        </div>
+        <div id="aceptarPedido"></div>
+    </div>
+    </main>
+
+    <footer>
+
+    </footer>
+
+
+
+
+    <script src="./index.js"></script>
+</body>
+
+</html>

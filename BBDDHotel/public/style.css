@@ -1,0 +1,10 @@
+#mensaje {
+    display: flex;
+    justify-content: space-around;
+}
+
+#clientes,
+#reservas,
+#habitaciones {
+    width: 25%;
+}

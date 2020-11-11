@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBDD Hotel</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+    <input id="dniRegistro" placeholder="DNI" type="text">
+    <input id="nombre" placeholder="Nombre" type="text">
+    <input id="apellido1" placeholder="Primer apellido" type="text">
+    <input id="apellido2" placeholder="Segundo apellido" type="text">
+    <button onclick="registrar()">Registrar</button>
+    <button onclick="editar()">Editar registro</button>
+    <hr>
+    <input id="dniEntrada" placeholder="DNI" type="text">
+    <select name="numero" id="numero">
+            <option value="1">Habitación 1</option>
+            <option value="2">Habitación 2</option>
+            <option value="3">Habitación 3</option>
+            <option value="4">Habitación 4</option>
+            <option value="5">Habitación 5</option>
+            <option value="6">Habitación 6</option>
+            <option value="7">Habitación 7</option>
+            <option value="8">Habitación 8</option>
+        </select>
+    <input type="date" name="fechaIn" id="fechaIn">
+    <button onclick="entrada()">Check-in</button>
+    <hr>
+    <input id="dniSalida" placeholder="DNI" type="text">
+    <input type="date" name="fechaOut" id="fechaOut">
+    <button onclick="salida()">Check-out</button>
+    <hr>
+    <div id="mensaje">
+        <div id="clientes"></div>
+        <div id="habitaciones"></div>
+        <div id="reservas"></div>
+    </div>
+
+
+
+
+    <script src="./index.js"></script>
+</body>
+
+</html>
