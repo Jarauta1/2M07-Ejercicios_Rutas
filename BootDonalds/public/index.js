@@ -2,6 +2,9 @@ let mensaje
 let menuEleccion
 let bebidaEleccion
 
+let array = []
+
+footer()
 
 function menu() {
     document.getElementById("aceptarPedido").innerHTML = ""
@@ -61,6 +64,7 @@ let precioMenu
 
 function menuFin() {
     bebidaEleccion = document.getElementById("seleccionBebida").value
+    document.getElementById("resultado").innerHTML = ""
 
     fetch('/menu/').then(function(res) {
         return res.json();
@@ -115,7 +119,7 @@ function cestaMenu() {
             window.alert("Pedido guardado. Pendiente confirmación")
             document.getElementById("aceptarPedido").innerHTML = ""
             location.reload()
-
+            footer()
         });
 
 }
@@ -150,6 +154,7 @@ function hamburguesa() {
 function hamburguesaPatatas() {
 
     hamburguesaEleccion = document.getElementById("seleccionMenu").value
+    document.getElementById("resultado").innerHTML = ""
     document.getElementById("aceptarPedido").innerHTML = `
     <div>
     <h2>¿Quieres añadir unas patatas "BootFries" por 1€?</h2>
@@ -224,7 +229,7 @@ function cestaHamburguesa() {
             window.alert("Pedido guardado. Pendiente confirmación")
             document.getElementById("aceptarPedido").innerHTML = ""
             location.reload()
-
+            footer()
         });
 
 }
@@ -296,6 +301,7 @@ function cestaBebida() {
                 window.alert("Pedido guardado. Pendiente confirmación")
                 document.getElementById("aceptarPedido").innerHTML = ""
                 location.reload()
+                footer()
             })
     })
 
@@ -316,6 +322,7 @@ function pedido() {
     fetch('/pedido/').then(function(res) {
         return res.json();
     }).then(function(data) {
+        array = data
 
         for (let j = 0; j < data.length; j++) {
             if (data[j].tipo == "menu") {
@@ -327,8 +334,8 @@ function pedido() {
                 <p>Patatas: ${data[j].patatas}</p>
                 <p>Precio: ${data[j].precio} €</p>
                
-                <button id="botonOpcion2" onclick=editar("${data[j].tipo}","${data[j].nombre}") with="50" height="50">EDITAR</button>
-                <button id="botonOpcion2" onclick=borrarProducto("${data[j].tipo}","${data[j].nombre}") with="50" height="50">BORRAR</button>
+                <button id="botonOpcion2" onclick=editar("${j}") with="50" height="50">EDITAR</button>
+                <button id="botonOpcion2" onclick=borrarProducto("${j}") with="50" height="50">BORRAR</button>
                 </div>
                 `
             } else if (data[j].tipo == "hamburguesa") {
@@ -338,8 +345,8 @@ function pedido() {
                 <p>Patatas: ${data[j].patatas}</p>
                 <p>Precio: ${data[j].precio} €</p>
                
-                <button id="botonOpcion2" onclick=editar("${data[j].tipo}","${data[j].nombre}") with="50" height="50">EDITAR</button>
-                <button id="botonOpcion2" onclick=borrarProducto("${data[j].tipo}","${data[j].nombre}") with="50" height="50">BORRAR</button>
+                <button id="botonOpcion2" onclick=editar("${j}") with="50" height="50">EDITAR</button>
+                <button id="botonOpcion2" onclick=borrarProducto("${j}") with="50" height="50">BORRAR</button>
                 </div>
                 `
             } else if (data[j].tipo == "bebida") {
@@ -348,8 +355,8 @@ function pedido() {
                 <h3>Su bebida: ${data[j].nombre}</h3>
                 <p>Precio: ${data[j].precio} €</p>
                
-                <button id="botonOpcion2" onclick=editar("${data[j].tipo}","${data[j].nombre}") with="50" height="50">EDITAR</button>
-                <button id="botonOpcion2" onclick=borrarProducto("${data[j].tipo}","${data[j].nombre}") with="50" height="50">BORRAR</button>
+                <button id="botonOpcion2" onclick=editar("${j}") with="50" height="50">EDITAR</button>
+                <button id="botonOpcion2" onclick=borrarProducto("${j}") with="50" height="50">BORRAR</button>
                 </div>
                 `
             }
@@ -405,7 +412,7 @@ function aceptar() {
             .then(function(data) {
 
                 location.reload()
-
+                footer()
             });
     })
 
@@ -414,11 +421,20 @@ function aceptar() {
 
 let mensajeEditar = ""
 
-function editar(tipo, nombre) {
+function editar(indice) {
+    let tipo
+    let nombre
+    console.log(array)
+    console.log(indice)
+    for (let i = 0; i < array.length; i++) {
+        if (i == indice) {
+            tipo = array[i].tipo
+            nombre = array[i].nombre
+        }
+    }
 
-    console.log(tipo, nombre)
     let editarProducto = { tipo: tipo, nombre: nombre }
-
+    console.log(editarProducto)
 
     fetch('/pedido/').then(function(res) {
         return res.json();
@@ -440,7 +456,7 @@ function editar(tipo, nombre) {
                         .then(function(data) {
 
                             menu()
-
+                            footer()
                         });
                 }
             }
@@ -461,7 +477,7 @@ function editar(tipo, nombre) {
                         .then(function(data) {
 
                             hamburguesa()
-
+                            footer()
                         });
                 }
             }
@@ -483,6 +499,7 @@ function editar(tipo, nombre) {
                         .then(function(data) {
 
                             bebida()
+                            footer()
 
                         });
 
@@ -501,8 +518,8 @@ function editar(tipo, nombre) {
             })
             .then(function(data) {
 
-                /* location.reload() */
-
+                /*  location.reload() */
+                footer()
             });
 
     });
@@ -528,17 +545,27 @@ function borrar() {
         .then(function(data) {
 
             location.reload()
-
+            footer()
         });
 
 
 }
 
-function borrarProducto(tipo, nombre) {
+function borrarProducto(indice) {
 
-    let productoBorrar = { tipo: tipo, nombre: nombre }
+    let tipo
+    let nombre
+    console.log(array)
+    console.log(indice)
+    for (let i = 0; i < array.length; i++) {
+        if (i == indice) {
+            tipo = array[i].tipo
+            nombre = array[i].nombre
+        }
+    }
 
-
+    let editarProducto = { tipo: tipo, nombre: nombre }
+    console.log(editarProducto)
     fetch('/pedido/').then(function(res) {
         return res.json();
     }).then(function(data) {
@@ -560,7 +587,7 @@ function borrarProducto(tipo, nombre) {
                         .then(function(data) {
 
                             location.reload()
-
+                            footer()
                         });
                 }
             }
@@ -581,7 +608,7 @@ function borrarProducto(tipo, nombre) {
                         .then(function(data) {
 
                             location.reload()
-
+                            footer()
                         });
                 }
             }
@@ -603,7 +630,7 @@ function borrarProducto(tipo, nombre) {
                         .then(function(data) {
 
                             location.reload()
-
+                            footer()
                         });
 
                 }
@@ -622,20 +649,22 @@ function borrarProducto(tipo, nombre) {
             })
             .then(function(data) {
 
-                location.reload()
-
+                /* location.reload() */
+                footer()
             });
 
     });
 }
 
-let footer = localStorage.getItem("total")
+function footer() {
+    let footer = localStorage.getItem("total")
 
-if (footer == null) {
-    footer = 0;
-    document.getElementById("footer").innerHTML = `Lleva acumulado de pedido: ${footer} €.`
-} else {
+    if (footer == null) {
+        footer = 0;
+        document.getElementById("footer").innerHTML = `Lleva acumulado de pedido: ${footer} €.`
+    } else {
 
 
-    document.getElementById("footer").innerHTML = `Lleva acumulado de pedido: ${footer} €.`
+        document.getElementById("footer").innerHTML = `Lleva acumulado de pedido: ${footer} €.`
+    }
 }
