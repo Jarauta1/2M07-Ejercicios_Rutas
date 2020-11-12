@@ -4,7 +4,7 @@
 
 * {
     box-sizing: border-box;
-    font-family: 'Helvetica Neue', sans-serif;
+    /* font-family: 'Helvetica Neue', sans-serif; */
 }
 
 header {
@@ -13,6 +13,7 @@ header {
     align-items: center;
     height: 10%;
     background-color: black;
+    font-family: 'Helvetica Neue', sans-serif;
 }
 
 #fondo {
@@ -141,13 +142,18 @@ header {
 /* MAIN */
 /* ---- */
 
+body {
+    top:8px;
+    background-color:  #f39d12;
+}
+
 main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
-    background: #f39c12;
+    background: #f39c12;  
+    margin: 40px; 
   }
   
   .producto {
@@ -177,14 +183,26 @@ main {
     border-radius: .25em;
   }
   
-  #pedir {
+  #botonOpcion {
     
-    width: 20em;
+    width: 30%;
     height: 3em;
     cursor: pointer;
     color: white;
     background: #2c3e50;
+    font-family: "Tiza";
+    font-size: x-large;    
+  }
+
+  #botonOpcion2 {
     
+    width: 60%;
+    height: 3em;
+    cursor: pointer;
+    color: white;
+    background: #2c3e50;
+    font-family: "Tiza";
+    font-size: normal;    
   }
 
   .producto {
@@ -215,9 +233,75 @@ main {
   }
 
   #resultado {
-      margin: 10%; 
+      margin: 1%; 
   }
 
   #resultado div {
       margin-bottom: 10%;  
   }
+
+  #aceptarPedido {
+      background-image: url(./imagenes/pizarra.jpg);
+      width: 80%;
+      background-repeat: no-repeat; 
+      background-size: cover;
+      margin-bottom: 50px;
+    }
+    
+    .ajuste {
+        display: flex;
+        justify-content: center;          
+  }
+
+    .botones {
+        display: flex;
+        justify-content: space-around;          
+  }
+
+@font-face {
+    font-family: "Tiza";
+    src: url("font/Tiza.woff2") format("woff2"),
+    url("font/Tiza.woff") format("woff"),
+    url("font/Tiza.ttf") format("ttf");
+    font-style: normal;
+    font-size: xx-large;   
+}
+
+  #aceptarPedido div {
+      margin: 5%;
+      font-family: "Tiza";
+      font-size: x-large;
+      color: white;
+  }
+
+  footer{
+    position: fixed;
+    bottom: 0px;
+    left: 8px;
+    right: 8px;
+    height: 50px;
+    padding-bottom: 16px;
+    background: #111;
+    background: rgba(0, 0, 0, 0.8);
+    border-top: 2px solid #f00;
+    z-index:2000;
+    display: flex;
+    justify-content: space-between;
+}
+
+#footer {
+    font-family: "Tiza";
+    font-size:normal;
+    color: wheat;
+    margin-left:50px;
+    margin-top: 10px;
+}
+
+#footer2 {
+    font-family: "Tiza";
+    font-size:normal;
+    color: wheat;
+    margin-right:50px;
+    
+}
+ 

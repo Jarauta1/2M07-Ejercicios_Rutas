@@ -1,13 +1,12 @@
-  
-const express = require("express");
-const router = express.Router();
+  const express = require("express");
+  const router = express.Router();
 
-let productos = require("./productos")
+  let productos = require("./productos")
 
-router.get("/", function (req,res){
-    let db = req.app.locals.db
+  router.get("/", function(req, res) {
+      let db = req.app.locals.db
 
-   res.send(productos.menus)
-})
+      res.send(productos.menus)
+  })
 
-module.exports = router;
+  module.exports = router;

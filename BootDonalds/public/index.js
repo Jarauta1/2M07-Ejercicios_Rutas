@@ -10,8 +10,8 @@ function menu() {
     }).then(function(data) {
 
         mensaje = ""
-        let i
-        for (i = 0; i < data.length; i++) {
+
+        for (let i = 0; i < data.length; i++) {
 
             mensaje += `
                 <option value="${data[i].nombre}">${data[i].nombre}</option>            
@@ -81,9 +81,9 @@ function menuFin() {
     <p>Patatas: BootFries</p>
     <p>Precio: ${precioMenu} €</p>
     </div>
-    <div>
-    <button id="cestaMenu" onclick="cestaMenu()" with="50" height="50">Pedir</button>
-    <button id="cancelar" onclick="location.reload()" with="50" height="50">Cancelar</button>
+    <div class="botones">
+    <button id="botonOpcion" onclick="cestaMenu()" with="50" height="50">Pedir</button>
+    <button id="botonOpcion" onclick="location.reload()" with="50" height="50">Cancelar</button>
     </div>
     `
         document.getElementById("aceptarPedido").innerHTML = mensajePedido
@@ -94,7 +94,7 @@ function menuFin() {
 function cestaMenu() {
     let pedidoMenu = {
         tipo: "menu",
-        hamburguesa: menuEleccion,
+        nombre: menuEleccion,
         bebida: bebidaEleccion,
         patatas: "BootFries",
         precio: precioMenu
@@ -112,7 +112,7 @@ function cestaMenu() {
         })
         .then(function(data) {
 
-            window.alert("Pedido guardado. Pendiente aceptación")
+            window.alert("Pedido guardado. Pendiente confirmación")
             document.getElementById("aceptarPedido").innerHTML = ""
             location.reload()
 
@@ -127,8 +127,8 @@ function hamburguesa() {
     }).then(function(data) {
 
         mensaje = ""
-        let i
-        for (i = 0; i < data.length; i++) {
+
+        for (let i = 0; i < data.length; i++) {
 
             mensaje += `
                 <option value="${data[i].nombre}">${data[i].nombre}</option>            
@@ -154,30 +154,31 @@ function hamburguesaPatatas() {
     <div>
     <h2>¿Quieres añadir unas patatas "BootFries" por 1€?</h2>
     </div>
-    <div>
-    <button id="finHamburguesa(1)" onclick="cestaMenu()" with="50" height="50">SI</button>
-    <button id="finHamburguesa(0)" onclick="location.reload()" with="50" height="50">NO</button>
+    <div class="botones">
+    <button id="botonOpcion" onclick="finHamburguesa(1)" with="50" height="50">SI</button>
+    <button id="botonOpcion" onclick="finHamburguesa(0)" with="50" height="50">NO</button>
     </div>
     `
 }
 
 let precioHamburguesa
+let patatasHamburguesa
 
 function finHamburguesa(variable) {
 
     if (variable == 1) {
-        let patatasHamburguesa = "BootFries"
+        patatasHamburguesa = "BootFries"
     } else if (variable == 0) {
-        let patatasHamburguesa = "-"
+        patatasHamburguesa = "-"
     }
 
-    fetch(`/hamburguesas/`).then(function(res) {
+    fetch(`/hamburguesa/`).then(function(res) {
         return res.json();
     }).then(function(data) {
 
         for (let j = 0; j < data.length; j++) {
             if (hamburguesaEleccion == data[j].nombre) {
-                precioHamburguesa = parseInt(data[j].precio) + parseInt(variable)
+                precioHamburguesa = parseFloat(data[j].precio) + parseFloat(variable)
             }
         }
 
@@ -188,9 +189,9 @@ function finHamburguesa(variable) {
         <p>Patatas: ${patatasHamburguesa}</p>
         <p>Precio: ${precioHamburguesa} €</p>
         </div>
-        <div>
-        <button id="cestaHamburguesa" onclick="cestaHamburguesa()" with="50" height="50">Pedir</button>
-        <button id="cancelar" onclick="location.reload()" with="50" height="50">Cancelar</button>
+        <div class="botones">
+        <button id="botonOpcion" onclick="cestaHamburguesa()" with="50" height="50">Pedir</button>
+        <button id="botonOpcion" onclick="location.reload()" with="50" height="50">Cancelar</button>
         </div>
         `
         document.getElementById("aceptarPedido").innerHTML = mensajePedido
@@ -203,7 +204,7 @@ function finHamburguesa(variable) {
 function cestaHamburguesa() {
     let pedidoHamburguesa = {
         tipo: "hamburguesa",
-        hamburguesa: hamburguesaEleccion,
+        nombre: hamburguesaEleccion,
         patatas: patatasHamburguesa,
         precio: precioHamburguesa
     }
@@ -220,7 +221,7 @@ function cestaHamburguesa() {
         })
         .then(function(data) {
 
-            window.alert("Pedido guardado. Pendiente aceptación")
+            window.alert("Pedido guardado. Pendiente confirmación")
             document.getElementById("aceptarPedido").innerHTML = ""
             location.reload()
 
@@ -234,7 +235,7 @@ function bebida() {
     fetch('/bebida/').then(function(res) {
         return res.json();
     }).then(function(data) {
-        console.log(data)
+
         mensaje = ""
 
         for (let i = 0; i < data.length; i++) {
@@ -245,16 +246,63 @@ function bebida() {
         }
         document.getElementById('resultado').innerHTML = `
         <div id="select">
-        <select name="producto" class="producto">
-        <option value="-">Elige un menú</option>
+        <select name="producto" id="seleccionBebida" class="producto">
+        <option value="-">Elige una bebida</option>
         ${mensaje}
         </select>
         </div>
-        <div id="botonPedido">
-        <button id="pedir" onclick="pedir()" with="50" height="50">Pedir</button>
+        <div id="botonPedido" class="botones">
+        <button id="botonOpcion" onclick="cestaBebida()" with="50" height="50">Pedir</button>
         </div>
         `;
     })
+}
+
+let bebidaEleccion2
+let precioBebida
+
+function cestaBebida() {
+
+    bebidaEleccion2 = document.getElementById("seleccionBebida").value
+    document.getElementById("aceptarPedido").innerHTML = ""
+
+    fetch('/bebida/').then(function(res) {
+        return res.json();
+    }).then(function(data) {
+
+        for (let i = 0; i < data.length; i++) {
+            if (bebidaEleccion2 == data[i].nombre) {
+                precioBebida = parseFloat(data[i].precio)
+            }
+        }
+
+        let pedidoBebida = {
+            tipo: "bebida",
+            nombre: bebidaEleccion2,
+            precio: precioBebida
+        }
+
+        fetch("/pedido/bebida", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(pedidoBebida),
+            })
+            .then(function(res) {
+                return res.json();
+            })
+            .then(function(data) {
+                window.alert("Pedido guardado. Pendiente confirmación")
+                document.getElementById("aceptarPedido").innerHTML = ""
+                location.reload()
+            })
+    })
+
+
+
+
+
 }
 
 let menuConfirmacion = ""
@@ -269,30 +317,325 @@ function pedido() {
         return res.json();
     }).then(function(data) {
 
-
         for (let j = 0; j < data.length; j++) {
-            if (data.tipo == "menu") {
+            if (data[j].tipo == "menu") {
                 menuConfirmacion += `
                 <div>
-                <h3>Su menú: ${data[j].hamburguesa}</h3>
-                <p>Hamburguesa: ${data[j].hamburguesa}</p>
+                <h3>Su menu: ${data[j].nombre}</h3>
+                <p>Hamburguesa: ${data[j].carne}</p>
                 <p>Bebida: ${data[j].bebida}</p>
                 <p>Patatas: ${data[j].patatas}</p>
                 <p>Precio: ${data[j].precio} €</p>
-                </div>`
-            } else if (data.tipo = "hamburguesa") {
+               
+                <button id="botonOpcion2" onclick=editar("${data[j].tipo}","${data[j].nombre}") with="50" height="50">EDITAR</button>
+                <button id="botonOpcion2" onclick=borrarProducto("${data[j].tipo}","${data[j].nombre}") with="50" height="50">BORRAR</button>
+                </div>
+                `
+            } else if (data[j].tipo == "hamburguesa") {
                 menuConfirmacion += `
                 <div>
-                <h3>Su Hamburguesa: ${data[j].hamburguesa}</h3>
+                <h3>Su hamburguesa: ${data[j].nombre}</h3>
                 <p>Patatas: ${data[j].patatas}</p>
                 <p>Precio: ${data[j].precio} €</p>
+               
+                <button id="botonOpcion2" onclick=editar("${data[j].tipo}","${data[j].nombre}") with="50" height="50">EDITAR</button>
+                <button id="botonOpcion2" onclick=borrarProducto("${data[j].tipo}","${data[j].nombre}") with="50" height="50">BORRAR</button>
+                </div>
+                `
+            } else if (data[j].tipo == "bebida") {
+                menuConfirmacion += `
+                <div>
+                <h3>Su bebida: ${data[j].nombre}</h3>
+                <p>Precio: ${data[j].precio} €</p>
+               
+                <button id="botonOpcion2" onclick=editar("${data[j].tipo}","${data[j].nombre}") with="50" height="50">EDITAR</button>
+                <button id="botonOpcion2" onclick=borrarProducto("${data[j].tipo}","${data[j].nombre}") with="50" height="50">BORRAR</button>
                 </div>
                 `
             }
         }
 
-        document.getElementById("aceptarPedido").innerHTML = menuConfirmacion
+        let compra = 0
+
+        for (let i = 0; i < data.length; i++) {
+            compra += parseFloat(data[i].precio)
+            localStorage.setItem("total", compra)
+        }
+
+        document.getElementById("aceptarPedido").innerHTML = `<div class="ajuste">${menuConfirmacion}</div>
+        <div>
+        <h3>Precio total: ${compra} €</h3>
+        </div>
+        <div>
+    <h2>¿Acepta este pedido, quiere editarlo o ya no lo desea?</h2>
+    </div>
+        <div class="botones">
+    <button id="botonOpcion" onclick="aceptar()" with="50" height="50">ACEPTAR</button>
+    <button id="botonOpcion" onclick="borrar()" with="50" height="50">ELIMINAR</button>
+    </div>`
 
     })
 
+}
+
+let totalCompra = 0
+
+function aceptar() {
+
+    fetch('/pedido/').then(function(res) {
+        return res.json();
+    }).then(function(data) {
+
+        for (let i = 0; i < data.length; i++) {
+            totalCompra += parseFloat(data[i].precio)
+        }
+
+        window.alert(`Su pedido estará listo en 30 minutos, son ${totalCompra} €. Gracias`)
+
+        fetch(`/pedido/borrar`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({}),
+            })
+            .then(function(res) {
+                return res.json();
+            })
+            .then(function(data) {
+
+                location.reload()
+
+            });
+    })
+
+
+}
+
+let mensajeEditar = ""
+
+function editar(tipo, nombre) {
+
+    console.log(tipo, nombre)
+    let editarProducto = { tipo: tipo, nombre: nombre }
+
+
+    fetch('/pedido/').then(function(res) {
+        return res.json();
+    }).then(function(data) {
+
+        if (tipo == "menu") {
+            for (let i = 0; i < data.length; i++) {
+                if (tipo === data[i].tipo && nombre === data[i].nombre) {
+                    fetch(`/pedido/borrarProducto`, {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({ tipo: tipo, nombre: nombre }),
+                        })
+                        .then(function(res) {
+                            return res.json();
+                        })
+                        .then(function(data) {
+
+                            menu()
+
+                        });
+                }
+            }
+        }
+        if (tipo == "hamburguesa") {
+            for (let i = 0; i < data.length; i++) {
+                if (tipo === data[i].tipo && nombre === data[i].nombre) {
+                    fetch(`/pedido/borrarProducto`, {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({ tipo: tipo, nombre: nombre }),
+                        })
+                        .then(function(res) {
+                            return res.json();
+                        })
+                        .then(function(data) {
+
+                            hamburguesa()
+
+                        });
+                }
+            }
+        }
+        if (tipo == "bebida") {
+            for (let i = 0; i < data.length; i++) {
+                if (tipo === data[i].tipo && nombre === data[i].nombre) {
+
+                    fetch(`/pedido/borrarProducto`, {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({ tipo: tipo, nombre: nombre }),
+                        })
+                        .then(function(res) {
+                            return res.json();
+                        })
+                        .then(function(data) {
+
+                            bebida()
+
+                        });
+
+                }
+            }
+        }
+        fetch(`/pedido/editar`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(editarProducto),
+            })
+            .then(function(res) {
+                return res.json();
+            })
+            .then(function(data) {
+
+                /* location.reload() */
+
+            });
+
+    });
+
+
+
+}
+
+function borrar() {
+
+    window.alert(`Su pedido ha sido eliminado. Gracias`)
+
+    fetch(`/pedido/borrar`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({}),
+        })
+        .then(function(res) {
+            return res.json();
+        })
+        .then(function(data) {
+
+            location.reload()
+
+        });
+
+
+}
+
+function borrarProducto(tipo, nombre) {
+
+    let productoBorrar = { tipo: tipo, nombre: nombre }
+
+
+    fetch('/pedido/').then(function(res) {
+        return res.json();
+    }).then(function(data) {
+
+
+        if (tipo == "menu") {
+            for (let i = 0; i < data.length; i++) {
+                if (tipo === data[i].tipo && nombre === data[i].nombre) {
+                    fetch(`/pedido/borrarProducto`, {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({ tipo: tipo, nombre: nombre }),
+                        })
+                        .then(function(res) {
+                            return res.json();
+                        })
+                        .then(function(data) {
+
+                            location.reload()
+
+                        });
+                }
+            }
+        }
+        if (tipo == "hamburguesa") {
+            for (let i = 0; i < data.length; i++) {
+                if (tipo === data[i].tipo && nombre === data[i].nombre) {
+                    fetch(`/pedido/borrarProducto`, {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({ tipo: tipo, nombre: nombre }),
+                        })
+                        .then(function(res) {
+                            return res.json();
+                        })
+                        .then(function(data) {
+
+                            location.reload()
+
+                        });
+                }
+            }
+        }
+        if (tipo == "bebida") {
+            for (let i = 0; i < data.length; i++) {
+                if (tipo === data[i].tipo && nombre === data[i].nombre) {
+
+                    fetch(`/pedido/borrarProducto`, {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({ tipo: tipo, nombre: nombre }),
+                        })
+                        .then(function(res) {
+                            return res.json();
+                        })
+                        .then(function(data) {
+
+                            location.reload()
+
+                        });
+
+                }
+            }
+        }
+
+        fetch(`/pedido/editar`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(editarProducto),
+            })
+            .then(function(res) {
+                return res.json();
+            })
+            .then(function(data) {
+
+                location.reload()
+
+            });
+
+    });
+}
+
+let footer = localStorage.getItem("total")
+
+if (footer == null) {
+    footer = 0;
+    document.getElementById("footer").innerHTML = `Lleva acumulado de pedido: ${footer} €.`
+} else {
+
+
+    document.getElementById("footer").innerHTML = `Lleva acumulado de pedido: ${footer} €.`
 }
